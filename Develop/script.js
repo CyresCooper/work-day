@@ -4,7 +4,24 @@ var hour = parseInt(moment().format('H'));
 var time = $(".time");
 var saveBtn = $(".saveBtn");
 
+//changes the backgroun as the time changes
+function timeTracker() {
+  time.each(function () {
+    var block = $(this);
+    var blockHr = parseInt(block.attr("data-hr"));
 
+    if (blockHr === hour) {
+      block.addClass("present").removeClass("past future");
+    }
+    if (blockHr < hour) {
+      block.addClass("past").removeClass("present future");
+    }
+    if (blockHr > hour) {
+      block.addClass("future").removeClass("past present");
+    }
+  });
+}
+timeTracker();
 //save local storage
 saveBtn.click(function () {
   plan = $(this).prev().val();
@@ -24,6 +41,7 @@ $(document).ready(function () {
     console.log('savedPlan:', savedPlan)
   }
 });
+
 
 
 
